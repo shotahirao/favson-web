@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  # ログイン機能
+  get 'login', to: 'users#login', as: 'user_login'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
