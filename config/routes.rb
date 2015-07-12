@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  # トップページ
+  root to: "users#index"
+
+  # ログイン機能
+  get 'login', to: 'users#login', as: 'user_login'
+  get '/auth/:provider/callback', to: 'users#create', as: :auth_callback
+  get '/auth/failure',to: 'users#auth_failure', as: :auth_failure
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
