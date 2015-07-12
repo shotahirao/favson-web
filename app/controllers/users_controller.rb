@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  before_action :check_login, only: [:index]
+  before_action :check_login_in_login_action, only: [:login, :create]
+
   def index
   end
 
@@ -9,8 +12,11 @@ class UsersController < ApplicationController
   def create
     # Facebookログイン
     user  = User.from_omniauth(env['omniauth.auth'])
-    # ログイン後のページへ
-    redirect_to :root and return if user.save
+    if user.save
+      session[:user_id] = user.id
+      # ログイン後のページへ
+      redirect_to :root and return
+    end
     # ログイン失敗
     redirect_to auth_failure_path
   end
